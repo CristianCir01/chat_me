@@ -1,0 +1,19 @@
+.account-container {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .account-info {
+    margin-top: 20px;
+  }
+  
+  .account-info p {
+    margin-bottom: 10px;
+  }
+  
+  .account-info strong {
+    font-weight: bold;
+  }
