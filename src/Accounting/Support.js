@@ -2,7 +2,7 @@ import React from 'react';
 import '../Assets/Support.css';
 
 const Support = () => {
-  const supportEmail = 'exampledev@gmail.com';
+  const supportEmail = 'chatmesupp00@gmail.com';
 
   const handleContactSupport = () => {
     window.location.href = `mailto:${supportEmail}`;

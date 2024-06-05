@@ -1,15 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../Assets/ForgotPassword.css';
-export default function ForgotPassword() 
-{
+export default function ForgotPassword(){
 
+  const endpoint = 'http://127.0.0.1:5000'; // URL dell'API
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    fetchUser();
+  }, []);
+  
+  const fetchUser = async () => {
+    try {
+      // Mock response
+       const response = await axios.get(`${endpoint}/users/1`);
+      //const response = { data: mockUser };
+      setUser(response.data);
+    } catch (error) {
+      console.error('Errore durante il recupero dell\'utente:', error);
+    }
+  };
+  const sendEmail = async (emailInput) => {
+    try {
+      if(emailInput!==""){
+      await axios.post(`${endpoint}/forgot_password`, {  email:emailInput });
+      setEmail('');}
+    } catch (error) {
+      console.error('Errore durante l\'invio della email:', error);
+    }
+  };
 
   const [email, setEmail] = useState('');
 
-  const handleForgotPassword = () => {
-    // Qui puoi aggiungere la logica per gestire il recupero della password
-    console.log('Email:', email);
-  };
+
 
   return (
     <div className="forgot-password-container">
@@ -20,7 +43,7 @@ export default function ForgotPassword()
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button onClick={handleForgotPassword}>Submit</button>
+      <button onClick={()=>sendEmail(email)}>Submit</button>
     </div>
   );
 };

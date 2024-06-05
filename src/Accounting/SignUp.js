@@ -1,22 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../Assets/SignUp.css';
 import { Link } from 'react-router-dom';
 export default function SignUp() {
 
+  const endpoint = 'http://127.0.0.1:5000'; // URL dell'API
+
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignUp = () => {
-    // Qui puoi aggiungere la logica per gestire la registrazione
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Confirm Password:', confirmPassword);
+  const addUser = async (email,password,username) => {
+    try {
+      if(email!==""){
+      await axios.post(`${endpoint}/register`, 
+      {   "username": username,
+      "password": password,
+      "email": email});
+      setEmail('');}
+    } catch (error) {
+      console.error('Errore durante la registrazione:', error);
+    }
   };
 
   return (
     <div className="signup-container">
       <h2>Sign Up</h2>
+      <input
+        type="username"
+        placeholder="Esername"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
       <input
         type="email"
         placeholder="Email"
@@ -36,7 +52,7 @@ export default function SignUp() {
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
       
-      <button onClick={handleSignUp}>Sign Up</button>
+      <button onClick={()=> addUser(email,password,username)}>Sign Up</button>
       <div>
       <i>Already registered? Login</i>
       <button

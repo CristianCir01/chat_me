@@ -16,7 +16,7 @@ export default function App() {
 
  // const token = localStorage.getItem("authKey");
  
- const token = "authKey";
+ const token =null;
  
   const [isAuth, setIsAuth] = React.useState(token !== null && token !== undefined);
   var userRole ;
@@ -30,7 +30,7 @@ export default function App() {
       
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout isAuth={true}/>}>
+        <Route path="/" element={<Layout isAuth={isAuth}/>}>
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
