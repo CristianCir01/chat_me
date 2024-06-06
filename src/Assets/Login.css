@@ -1,7 +1,7 @@
 .login-container {
     max-width: 300px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 50px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
@@ -17,6 +17,7 @@
   button {
     width: 100%;
     padding: 8px;
+    margin: 2rem auto;
     background-color: #007bff;
     color: #fff;
     border: none;

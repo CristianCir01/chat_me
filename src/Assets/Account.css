@@ -1,7 +1,7 @@
 .account-container {
     max-width: 300px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 2rem;
     border: 1px solid #ccc;
     border-radius: 5px;
   }

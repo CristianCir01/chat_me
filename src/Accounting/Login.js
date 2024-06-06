@@ -1,16 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Assets/Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Chat_me from '../Components/Chat_me';
 
 export default function Login() {
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [msg, setMsg] = useState("");
 
-  const handleLogin = () => {
-    // Qui puoi aggiungere la logica per gestire il login
-    console.log('Username:', username);
-    console.log('Password:', password);
+  const endpoint = 'http://127.0.0.1:5000';
+  const navigate = useNavigate();
+
+  const handleLogin = async() => {
+
+    try {
+      if(username!=="" && password!==""){
+      var response = await axios.post(`${endpoint}/login`, {  email:username,password:password }).then(response=>{
+        localStorage.setItem("id",response.data.id)
+        localStorage.setItem("email",response.data.email)
+        localStorage.setItem("password",response.data.password)
+        localStorage.setItem("username",response.data.username) 
+
+      })
+      setPassword('')
+      setUsername('');
+      navigate("/chat_me")
+      window.location.reload()
+    }
+    } catch (error) {
+      console.error('Errore durante la login', error);
+      setMsg("Errore durante la login "+error)
+    }
   };
 
   return (
@@ -18,7 +39,7 @@ export default function Login() {
       <h2>Login</h2>
       <input
         type="text"
-        placeholder="Username"
+        placeholder="Email"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -32,7 +53,7 @@ export default function Login() {
       <i>Forgot Password? </i>
             <Link style={{color:"black"}} to={"/ForgotPassword"}>Here</Link>
          </div>
-      <button onClick={handleLogin}>Login</button>
+      <button onClick={async()=>{await handleLogin()}}>Login</button>
       <div>
       <i>Not Signed yet? Join Us!</i>
       <button
@@ -52,6 +73,8 @@ export default function Login() {
           >
             <Link style={{color:"white"}} to={"/Signup"}>SignUp</Link>
           </button></div>
+          <br/>
+          {msg!==""&&<p >{msg}</p>}
     </div>
   );
 };

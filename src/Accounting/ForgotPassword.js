@@ -23,7 +23,7 @@ export default function ForgotPassword(){
   const sendEmail = async (emailInput) => {
     try {
       if(emailInput!==""){
-      await axios.post(`${endpoint}/forgot_password`, {  email:emailInput });
+      await axios.post(`${endpoint}/recover_password`, {  email:emailInput });
       setEmail('');}
     } catch (error) {
       console.error('Errore durante l\'invio della email:', error);

@@ -15,28 +15,24 @@ import { Route,BrowserRouter, Routes} from "react-router-dom";
 export default function App() {
 
  // const token = localStorage.getItem("authKey");
- 
- const token =null;
- 
-  const [isAuth, setIsAuth] = React.useState(token !== null && token !== undefined);
-  var userRole ;
 
-  if (isAuth) 
-     userRole = localStorage.getItem("userRole");
- 
+  const id = localStorage.getItem("id")
+  const [isAuth, setIsAuth] = React.useState(id !== null && id !== undefined);
+  
+
  
   return (
     //Usare il Router per consentire la navigazione tra le pagine all'interno della piattaforma
       
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout isAuth={isAuth}/>}>
+        <Route path="/" element={<Layout isAuth={isAuth} id={id}/>}>
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
-          <Route path="/Chat_me" element={<Chat_me />} />
-          <Route path="/Support" element={<Support />} />
-          <Route path="/Account" element={<Account />} />
+          <Route path="/Chat_me" element={<Chat_me id={id}/>} />
+          <Route path="/Support" element={<Support id={id}/>} />
+          <Route path="/Account" element={<Account id={id} />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

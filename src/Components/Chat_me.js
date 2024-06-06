@@ -4,8 +4,9 @@ import '../Assets/Chat_me.css';
 
 const endpoint = 'http://127.0.0.1:5000'; // URL dell'API
 
-
+const id = localStorage.getItem("id")
 function Chat_me() {
+  
   const [user, setUser] = useState(null);
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
@@ -20,7 +21,7 @@ function Chat_me() {
   const fetchUser = async () => {
     try {
       // Mock response
-       const response = await axios.get(`${endpoint}/users/1`);
+       const response = await axios.get(`${endpoint}/users/${id}`);
       //const response = { data: mockUser };
       setUser(response.data);
       fetchChats(response.data.id);
@@ -45,7 +46,7 @@ function Chat_me() {
       const chat = chats.find(c => c.chatid === selectedChat.chatid);
       if (chat) {
         // Mock response
-       const response = await axios.get(`${endpoint}/chats/1/${selectedChat.userId2}`);
+       const response = await axios.get(`${endpoint}/chats/${id}/${selectedChat.userId2}`);
         //  const response = { data: chat.list };
         setMessages(response.data.list);
         setConnected(true);
@@ -75,7 +76,7 @@ function Chat_me() {
     setMessage(event.target.value);
   };
 
-  return (user === null ? "Utente non trovato." :
+  return (id === null ? "Utente non trovato. Effettua il login per visualizzare questa pagina" :
     <div className="chatme">
       <div className="chat-list">
         <h3>Chat List</h3>
